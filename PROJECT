@@ -1,0 +1,7 @@
+domain: openshift.io
+repo: github.com/darthlukan/rhacm-mirror
+resources:
+- group: openshift.io
+  kind: HubPool
+  version: v1alpha1
+version: "2"

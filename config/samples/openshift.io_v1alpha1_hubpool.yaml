@@ -1,0 +1,6 @@
+apiVersion: openshift.io.openshift.io/v1alpha1
+kind: HubPool
+metadata:
+  name: hubpool-sample
+spec:
+  # TODO(user): Add fields here
