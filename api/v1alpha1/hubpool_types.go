@@ -20,16 +20,29 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+// CredentialSpec defines the credential structure
+type CredentialSpec struct {
+	Secret string `json:"secret,omitempty"`
+}
+
+// BackupLocationSpec defines the remote backup location
+type BackupLocationSpec struct {
+	URL         string         `json:"url,omitempty"`
+	Protocol    string         `json:"protocol,omitempty"`
+	Credentials CredentialSpec `json:"credentials,omitempty"`
+}
 
 // HubPoolSpec defines the desired state of HubPool
 type HubPoolSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of HubPool. Edit hubpool_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Pool                map[string]string  `json:"pool,omitempty"`
+	InitialLeader       string             `json:"initial_leader,omitempty"`
+	PingPeriod          string             `json:"ping_period,omitempty"`
+	PingFailsAcceptable int                `json:"ping_fails_acceptable,omitempty"`
+	BackupLocation      BackupLocationSpec `json:"backup_location,omitempty"`
+	FailoverAlertEmail  string             `json:"failover_alert_email,omitempty"`
 }
 
 // HubPoolStatus defines the observed state of HubPool
