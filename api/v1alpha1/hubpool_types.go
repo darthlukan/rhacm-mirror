@@ -37,12 +37,19 @@ type HubPoolSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Pool                map[string]string  `json:"pool,omitempty"`
-	InitialLeader       string             `json:"initial_leader,omitempty"`
-	PingPeriod          string             `json:"ping_period,omitempty"`
-	PingFailsAcceptable int                `json:"ping_fails_acceptable,omitempty"`
-	BackupLocation      BackupLocationSpec `json:"backup_location,omitempty"`
-	FailoverAlertEmail  string             `json:"failover_alert_email,omitempty"`
+	// Pool defines the list of hubs in the pool by 'hub_name: api.hub_name.*'
+	Pool map[string]string `json:"pool,omitempty"`
+	// InitialLeader defines the hub desired as initial lead hub.
+	// IMPORTANT! This is purely a RHACM Mirror configuration and DOES NOT configure RHACM itself!
+	InitialLeader string `json:"initial_leader,omitempty"`
+	// PingPeriod defines the time between pings to hubs in spec.pool
+	PingPeriod string `json:"ping_period,omitempty"`
+	// PingFailsAcceptable defines the number of failed pings before RHACM Mirror begins failover activities
+	PingFailsAcceptable int `json:"ping_fails_acceptable,omitempty"`
+	// BackupLocation defines the remote location containing RHACM backups
+	BackupLocation BackupLocationSpec `json:"backup_location,omitempty"`
+	// FailoverAlertEmail defines the email address to be notified when failover activities have ocurred
+	FailoverAlertEmail string `json:"failover_alert_email,omitempty"`
 }
 
 // HubPoolStatus defines the observed state of HubPool

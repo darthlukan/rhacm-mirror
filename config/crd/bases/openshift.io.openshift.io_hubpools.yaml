@@ -36,10 +36,43 @@ spec:
         spec:
           description: HubPoolSpec defines the desired state of HubPool
           properties:
-            foo:
-              description: Foo is an example field of HubPool. Edit hubpool_types.go
-                to remove/update
+            backup_location:
+              description: BackupLocation defines the remote location containing RHACM
+                backups
+              properties:
+                credentials:
+                  description: CredentialSpec defines the credential structure
+                  properties:
+                    secret:
+                      type: string
+                  type: object
+                protocol:
+                  type: string
+                url:
+                  type: string
+              type: object
+            failover_alert_email:
+              description: FailoverAlertEmail defines the email address to be notified
+                when failover activities have ocurred
               type: string
+            initial_leader:
+              description: InitialLeader defines the hub desired as initial lead hub.
+                IMPORTANT! This is purely a RHACM Mirror configuration and DOES NOT
+                configure RHACM itself!
+              type: string
+            ping_fails_acceptable:
+              description: PingFailsAcceptable defines the number of failed pings
+                before RHACM Mirror begins failover activities
+              type: integer
+            ping_period:
+              description: PingPeriod defines the time between pings to hubs in spec.pool
+              type: string
+            pool:
+              additionalProperties:
+                type: string
+              description: 'Pool defines the list of hubs in the pool by ''hub_name:
+                api.hub_name.*'''
+              type: object
           type: object
         status:
           description: HubPoolStatus defines the observed state of HubPool
